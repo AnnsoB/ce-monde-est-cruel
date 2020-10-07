@@ -6,6 +6,7 @@ use Hackathon\Game\Result;
 
 /**
  * Class PatrickPlayers
+ * Je récupère les statistiques du joueur et je joue la valeur qui bat la valeur qu'il joue le
  * @package Hackathon\PlayerIA
  * @author Anne Solène TEFAK BIMBIA
  */
@@ -88,20 +89,11 @@ class PatrickPlayer extends Player
                 return parent::rockChoice();
         }
         
-
-        /*if ($value == 2)
-            $value = 0;
-        else
-            $value = $value + 1;
-
-        if ($value == 0)
-            $result = parent::rockChoice();
-        else if ($value == 1)
-            $result = parent::paperChoice();
-        else
-            $result = parent::scissorsChoice();*/
+        if ($this->result->getNbRound() == 1)
+            return parent::rockChoice();
+        if ($this->result->getNbRound() == 2)
+            return parent::scissorsChoice();
 
         return parent::paperChoice();
-
     }
 };
