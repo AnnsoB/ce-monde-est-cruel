@@ -5,7 +5,7 @@ namespace Hackathon\PlayerIA;
 use Hackathon\Game\Result;
 
 /**
- * Class SebaddonPlayers
+ * Class PatrickPlayers
  * @package Hackathon\PlayerIA
  * @author TEFAK BIMBIA Anne Solène
  */
@@ -42,7 +42,22 @@ class PatrickPlayer extends Player
         // -------------------------------------    -----------------------------------------------------
 
 
-        return parent::rockChoice();
+        $value = 0;
+
+
+        if ($value == 2)
+            $value = 0;
+        else
+            $value = $value + 1;
+
+        if ($value == 0)
+            $result = parent::rockChoice();
+        else if ($value == 1)
+            $result = parent::paperChoice();
+        else
+            $result = parent::scissorsChoice();
+
+        return parent::paperChoice();
 
     }
 };
