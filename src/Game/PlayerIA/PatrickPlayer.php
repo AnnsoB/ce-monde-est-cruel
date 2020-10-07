@@ -42,10 +42,12 @@ class PatrickPlayer extends Player
         // -------------------------------------    -----------------------------------------------------
 
 
-        $value = 0;
+        $opValue = $this->result->getLastChoiceFor($this->opponentSide);
 
+        if ($opValue == 'paper')
+            return parent::scissorsChoice();
 
-        if ($value == 2)
+        /*if ($value == 2)
             $value = 0;
         else
             $value = $value + 1;
@@ -55,7 +57,7 @@ class PatrickPlayer extends Player
         else if ($value == 1)
             $result = parent::paperChoice();
         else
-            $result = parent::scissorsChoice();
+            $result = parent::scissorsChoice();*/
 
         return parent::paperChoice();
 
