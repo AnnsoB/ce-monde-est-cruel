@@ -15,6 +15,31 @@ class PatrickPlayer extends Player
     protected $opponentSide;
     protected $result;
 
+    public function fiveLastChoices()
+    {
+        $opChoices = $this->result->getChoicesFor($this->opponentSide);
+        $last = $opChoices;
+        $size = count($opChoices);
+
+        if ($size > 7)
+            $last = array_slice($opChoices, ($size - 8));
+        
+        return $last;
+    }
+
+    public function sameLast()
+    {
+        $opFive = $this->fiveLastChoices();
+        
+        $first = $opFive[0];
+        foreach($opFive as $elmt)
+        {
+            if ($first != $elmt)
+                return 0;
+        }
+        return $first;
+    }
+
     public function getChoice()
     {
         // -------------------------------------    -----------------------------------------------------
@@ -41,11 +66,20 @@ class PatrickPlayer extends Player
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
 
+        if ($this->result->getNbRound() > 4)
+        {
+            $lasts = $this->sameLast();
+            if ($lasts != 0)
+            {
+                if ($lasts == 'paper')
+                    return parent::scissorsChoice();
+                if ($lasts == 'rock')
+                    return parent::paperChoice();
+                if ($lasts == 'scissors')
+                    return parent::rockChoice();
+            }
+        }
 
-        $opValue = $this->result->getLastChoiceFor($this->opponentSide);
-
-        if ($opValue == 'paper')
-            return parent::scissorsChoice();
 
         /*if ($value == 2)
             $value = 0;
