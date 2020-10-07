@@ -7,7 +7,7 @@ use Hackathon\Game\Result;
 /**
  * Class PatrickPlayers
  * @package Hackathon\PlayerIA
- * @author TEFAK BIMBIA Anne Solène
+ * @author Anne Solène TEFAK BIMBIA
  */
 class PatrickPlayer extends Player
 {
@@ -66,20 +66,28 @@ class PatrickPlayer extends Player
         // How can i display the result of each round ? $this->prettyDisplay()
         // -------------------------------------    -----------------------------------------------------
 
-        if ($this->result->getNbRound() > 4)
+        if ($this->result->getNbRound() > 3)
         {
-            $lasts = $this->sameLast();
-            if ($lasts != 0)
-            {
-                if ($lasts == 'paper')
-                    return parent::scissorsChoice();
-                if ($lasts == 'rock')
-                    return parent::paperChoice();
-                if ($lasts == 'scissors')
-                    return parent::rockChoice();
-            }
-        }
+            $opStat = $this->result->getStatsFor($this->opponentSide);
+            $paper = $opStat['paper'];
+            $rock = $opStat['rock'];
+            $scissors = $opStat['scissors'];
 
+            $max = 'paper';
+
+            if (($rock > $paper) && ($rock > $scissors))
+                $max = 'rock';
+            else if (($scissors > $paper) && ($scissors > $rock))
+                $max = 'scissors';
+
+            if ($max == 'rock')
+                return parent::paperChoice();
+            if ($max == 'paper')
+                return parent::scissorsChoice();
+            if ($max == 'scissors')
+                return parent::rockChoice();
+        }
+        
 
         /*if ($value == 2)
             $value = 0;
